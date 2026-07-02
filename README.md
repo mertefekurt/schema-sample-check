@@ -6,12 +6,12 @@
 
 Validate schema examples for placeholder data and missing required samples. It solves review drift by turning plain-text plans into deterministic CI-friendly findings.
 
-## Input Contract 17
+## Input Contract
 
 Accepts schema examples text. The reader supports plain text, JSON, JSONL, and CSV so the
 tool can fit into scripts, CI jobs, and review exports.
 
-## CLI Walkthrough 17
+## CLI Walkthrough
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -20,7 +20,7 @@ schema-sample-check examples/sample.txt --json --fail-on medium
 python -m schema_sample_check --help
 ```
 
-## Rule Surface 17
+## Rule Surface
 
 | Rule | Severity | Meaning |
 |---|---:|---|
@@ -28,7 +28,7 @@ python -m schema_sample_check --help
 | `placeholder-data` | medium | placeholder example detected |
 | `unrealistic-flag` | low | example marked unrealistic |
 
-## Validation Notes 17
+## Validation Notes
 
 ```bash
 ruff check .
