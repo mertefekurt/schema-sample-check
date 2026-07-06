@@ -1,44 +1,36 @@
 # Schema Sample Check
 
+> A small command-line review pass for schema hygiene.
+
 ![Schema Sample Check cover](assets/readme-cover.svg)
 
-> Validate schema examples for placeholder data and missing required samples
+Validate schema examples for placeholder data and missing required samples. I keep it small because this kind of check is most useful when it can run beside the work, not after the work has already shipped.
 
-![stack](https://img.shields.io/badge/stack-Python-b45309?style=flat-square) ![python](https://img.shields.io/badge/python-3.11-be185d?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-4b5563?style=flat-square) ![ci](https://img.shields.io/badge/ci-GitHub%20Actions-2563eb?style=flat-square)
+## Signals in plain English
 
-## At a glance
+- `missing-required` (high): required example is missing. Fix: add sample for required field.
+- `placeholder-data` (medium): placeholder example detected. Fix: use realistic example data.
+- `unrealistic-flag` (low): example marked unrealistic. Fix: replace with representative sample.
 
-| Area | Detail |
-| --- | --- |
-| Focus | schema hygiene |
-| Command | `schema-sample-check` |
-| Formats | text, JSON, JSONL, CSV |
-| Output | Markdown table or JSON |
+## Input and report
 
-## What it checks
+The reader accepts text, JSON, JSONL, or CSV. The default report is readable in a terminal or pull request; `--json` keeps the same findings available to automation.
 
-| Rule | Severity | What it catches |
-| --- | --- | --- |
-| `missing-required` | high | required example is missing |
-| `placeholder-data` | medium | placeholder example detected |
-| `unrealistic-flag` | low | example marked unrealistic |
-
-## Try it locally
+## Demo
 
 ```bash
+git clone https://github.com/mertefekurt/schema-sample-check.git
+cd schema-sample-check
+python -m venv .venv
+source .venv/bin/activate
 python -m pip install -e ".[dev]"
 schema-sample-check examples/sample.txt
-schema-sample-check examples/sample.txt --json --fail-on medium
+schema-sample-check examples/sample.txt --json
 ```
 
-## Notes from the code
-
-`rules.py` keeps the project policy explicit, while `core.py` handles parsing and report rendering. The CLI stays thin on purpose so the checks are easy to test.
-
-## Verify
+## Sanity checks
 
 ```bash
-python -m pip install -e ".[dev]"
 ruff check .
 pytest
 python -m schema_sample_check --help
